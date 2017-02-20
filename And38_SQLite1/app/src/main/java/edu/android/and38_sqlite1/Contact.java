@@ -13,7 +13,6 @@ public class Contact {
     private String cname;
     private String phone;
     private String email;
-
     // 테이블의 이름과 column의 이름을 정의
     public class ContactEntry implements BaseColumns {
         public static final String TABLE_NAME = "tbl_contact";
