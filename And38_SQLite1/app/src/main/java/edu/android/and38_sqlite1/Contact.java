@@ -13,6 +13,8 @@ public class Contact {
     private String cname;
     private String phone;
     private String email;
+
+    // select * from tbl_contact;   (테이블 이름에서 tbl.contact 라고 하면 tbl이라는 스키마 안에 contact라는 클래스 라는 뜻이 된다!)
     // 테이블의 이름과 column의 이름을 정의
     public class ContactEntry implements BaseColumns {
         public static final String TABLE_NAME = "tbl_contact";

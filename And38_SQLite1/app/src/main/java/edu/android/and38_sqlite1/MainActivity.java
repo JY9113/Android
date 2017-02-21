@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btnSelectAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Contact> list = helper.selectAll();
+                List<Contact> list = helper.select();
                 StringBuffer buffer = new StringBuffer();
                 for (int i = 0; i < list.size(); i++) {
                     Contact c = list.get(i);
@@ -55,6 +55,27 @@ public class MainActivity extends AppCompatActivity {
                             .append(c.getPhone()).append(" | ").append(c.getEmail()).append("\n");
                 }
                 textResult.setText(buffer);
+            }
+        });
+
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectById();
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateContact();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteContact();
             }
         });
     }
@@ -66,5 +87,34 @@ public class MainActivity extends AppCompatActivity {
         Contact contact = new Contact(0, name, phone, email);
         long result = helper.insertContact(contact);
         textResult.setText(result + " INSERT 성공");
+    }
+
+    private void selectById() {
+        int id = Integer.parseInt(editId.getText().toString());
+        // id 가 integer변환이 되는가, select 결과가 null인가 ... 에러처리!
+        Contact contact = helper.select(id);
+        editName.setText(contact.getCname());
+        editPhone.setText(contact.getPhone());
+        editEmail.setText(contact.getEmail());
+
+    }
+
+    private void updateContact() {
+        int id = Integer.parseInt(editId.getText().toString());
+        String name = editName.getText().toString();
+        String phone = editPhone.getText().toString();
+        String email = editEmail.getText().toString();
+
+        Contact c = new Contact(id, name, phone, email);
+        int result = helper.updateContact(c);
+
+        textResult.setText(result + " 행이 업데이트 되었습니다");
+    }
+
+    private void deleteContact(){
+        int id = Integer.parseInt(editId.getText().toString());
+
+        int result = helper.deleteContact(id);
+        textResult.setText(result + " 행이 삭제되었습니다");
     }
 }

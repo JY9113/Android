@@ -69,7 +69,7 @@ public class ContactDbHelper extends SQLiteOpenHelper{
         return result;
     }
 
-    public List<Contact> selectAll() {
+    public List<Contact> select() {
         List<Contact> list = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
@@ -91,7 +91,70 @@ public class ContactDbHelper extends SQLiteOpenHelper{
         }
 
         db.close();
-
         return list;
     }
+
+    public Contact select(int id) {
+        // method overoading 사용!
+        Contact contact = null;
+        SQLiteDatabase db = getReadableDatabase();
+
+        // select * from tbl_contact where _id = ?
+        // table, columns(String[] 타입, 선택할 칼럼배열), selection(String 타입, where 구문의 내용-> where는 빼고! )
+        // selectionArgs(String[] 타입,where 절의 ?자리를 채울 변수들), groupBy(groupBy 구문의 내용), having( having 구문의 내용)
+        // orderBy( orderBy 구문의 내용), 안쓰는 부분은 null
+
+        String[] columns = { _ID, COL_CNAME, COL_PHONE, COL_EMAIL};
+        String selection = _ID  + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){  // count 값이 0 보다커야 값이 있다는 뜻!
+            int _id = cursor.getInt(0);
+            String cname = cursor.getString(1);
+            String phone = cursor.getString(2);
+            String email = cursor.getString(3);
+            contact = new Contact(_id, cname, phone, email);
+        }
+
+        db.close();
+        return contact;
+    }
+
+    public int updateContact(Contact contact) {
+        int result = 0;
+
+        // update tbl_contact set cname = ?, phone = ?, email = ? where _id = ?
+        SQLiteDatabase db = getWritableDatabase();
+        // table(업데이트 할 테이블 이름), values(ContentValues 타입, set 구문에서 사용될 컬럼과 값),
+        // whereClause(String 타입, where 구문의 내용), whereArgs(where 절에서 ? 를 완성시키는 내용)
+
+        ContentValues values = new ContentValues();
+        values.put(COL_CNAME, contact.getCname());
+        values.put(COL_PHONE, contact.getPhone());
+        values.put(COL_EMAIL, contact.getEmail());
+        String whereClause = _ID + " =?";
+        String[] whereArgs = {String.valueOf(contact.get_id())};
+
+        result = db.update(TABLE_NAME, values, whereClause, whereArgs);
+        // 몇 개의 행이 업데이트 되었는지 리턴
+
+        db.close();
+        return result;
+    }
+
+    public int deleteContact(int id) {
+        int result = 0;
+
+        SQLiteDatabase db = getWritableDatabase();
+        // table(삭제할 테이블 이름), whereclause(delete 에서 where 구문의 내용), whereArgs( where 절의 ? 완성)
+        String whereClause = _ID + " =?";
+        String[] whereArgs = {String.valueOf(id)};
+        result = db.delete(TABLE_NAME, whereClause, whereArgs);
+
+        db.close();
+        return  result;
+    }
+
 }
