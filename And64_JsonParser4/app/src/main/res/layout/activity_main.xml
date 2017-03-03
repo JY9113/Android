@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="edu.android.and64_jsonparser4.MainActivity">
+
+    <Button
+        android:text="JSON Object 쓰기"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:onClick="onClickWriteObj"
+        android:id="@+id/btnJsonObjWrite" />
+
+    <Button
+        android:text="JSON Object 읽기"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:onClick="onClickReadObj"
+        android:id="@+id/btnJsonObjRead" />
+
+    <Button
+        android:text="JSON Array 쓰기"
+        android:layout_marginLeft="20dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnJsonObjWrite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp"
+        android:onClick="onClickWriteArray"
+        android:id="@+id/btnJsonArrayWrite" />
+
+    <Button
+        android:text="JSON Array 읽기"
+        android:layout_marginRight="20dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btnJsonArrayWrite"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClickReadArray"
+        android:id="@+id/btnJsonArrayRead" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_below="@+id/btnJsonArrayWrite"
+        android:layout_alignLeft="@+id/btnJsonArrayWrite"
+        android:layout_alignStart="@+id/btnJsonArrayWrite"
+        android:layout_marginTop="21dp"
+        android:layout_alignRight="@+id/btnJsonArrayRead"
+        android:layout_alignEnd="@+id/btnJsonArrayRead"
+        android:id="@+id/scroll1">
+
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv1" />
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_alignLeft="@+id/btnJsonArrayWrite"
+        android:layout_alignStart="@+id/btnJsonArrayWrite"
+        android:layout_alignRight="@+id/btnJsonArrayRead"
+        android:layout_alignEnd="@+id/btnJsonArrayRead"
+        android:layout_below="@+id/scroll1"
+        android:id="@+id/scroll2">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv2" />
+    </ScrollView>
+</RelativeLayout>
